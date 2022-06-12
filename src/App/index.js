@@ -4,7 +4,6 @@ import './app.css';
 
 import AppHeader from './components/AppHeader/index.js';
 import Game from './components/Game';
-import ScoreBoard from "./components/ScoreBoard/scoreboard";
 
 const App = () => (
     <Router>
