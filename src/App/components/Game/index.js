@@ -21,21 +21,24 @@ const Game = () => {
             [2, 4, 6]
         ];
 
-        // a, b, c vars are references to indcies, defined by the elements of the lines array
-        // lines is a collection of index-trios that make up winning lines
-        // if a, b, and c contain the same value 'x' or 'o', it returns the winner
+        /**
+         * a, b, c vars are references to indcies, defined by the elements of the lines array
+         * lines is a collection of index-trios that make up winning lines
+         * if a, b, and c contain the same value 'x' or 'o', it returns the winner
+         */
+
         for (let i = 0; i < lines.length; i++) {
             const [a, b, c] = lines[i];
 
-            // if there is a value in square a and
-            // it is equal to what is in square b and
-            // it is equal to what is in square c
-            // return the value in square a
             if (
+              // if there is a value in square a and
               squares[a] &&
+              // it is equal to what is in square b and
               squares[a] === squares[b] &&
+              // it is equal to what is in square c
               squares[a] === squares[c]
               ) {
+                // return the value in square a
                 return squares[a];
             }
         }
