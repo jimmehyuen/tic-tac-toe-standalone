@@ -8,6 +8,7 @@ const Game = () => {
     const [gameHistory, setGameHistory] = useState([{ squares: Array(9).fill(null) }]); // Start of game, all squares are empty
     const [stepNumber, setStepNumber] = useState(0);
     const [xIsNext, setXisNext] = useState(true);
+    let winningSquares = [];
 
     const calculateWinner = (squares) => {
         const lines = [
@@ -29,7 +30,6 @@ const Game = () => {
 
         for (let i = 0; i < lines.length; i++) {
             const [a, b, c] = lines[i];
-
             if (
               // if there is a value in square a and
               squares[a] &&
@@ -38,6 +38,8 @@ const Game = () => {
               // it is equal to what is in square c
               squares[a] === squares[c]
               ) {
+                // Add the to the winningSquares array
+                winningSquares.push(a, b, c);
                 // return the value in square a
                 return squares[a];
             }
@@ -52,6 +54,7 @@ const Game = () => {
         const current = history[history.length - 1];
         const squares = current.squares.slice();
 
+        // when a player wins or a square has been filled, the function returns without any processing
         if (calculateWinner(squares) || squares[i]) {
             return;
         }
@@ -87,6 +90,7 @@ const Game = () => {
         status = "Winner: " + winner;
     } else {
         status = "Next player: " + (xIsNext ? "X" : "O");
+
     }
 
     return (
@@ -95,6 +99,7 @@ const Game = () => {
                 <Board
                     squares={current.squares}
                     onClick={i => handleClick(i)}
+                    winningSquares={winningSquares}
                 />
             </div>
             <div className="game-info">
