@@ -9,6 +9,9 @@ const Game = () => {
     const [stepNumber, setStepNumber] = useState(0);
     const [xIsNext, setXisNext] = useState(true);
     let winningSquares = [];
+    let [xScore, setXScore] = useState(0);
+    let [oScore, setOScore] = useState(0);
+    const [gameOver, setGameOver] = useState(false);
 
     const calculateWinner = (squares) => {
         const lines = [
@@ -27,7 +30,6 @@ const Game = () => {
          * lines is a collection of index-trios that make up winning lines
          * if a, b, and c contain the same value 'x' or 'o', it returns the winner
          */
-
         for (let i = 0; i < lines.length; i++) {
             const [a, b, c] = lines[i];
             if (
@@ -38,7 +40,7 @@ const Game = () => {
               // it is equal to what is in square c
               squares[a] === squares[c]
               ) {
-                // Add the to the winningSquares array
+                // Add winningSquares to the empty array
                 winningSquares.push(a, b, c);
                 // return the value in square a
                 return squares[a];
@@ -69,6 +71,7 @@ const Game = () => {
     const jumpTo = (step) => {
         setStepNumber(step);
         setXisNext(step % 2 === 0);
+        setGameOver(false);
     };
 
     const current = gameHistory[stepNumber];
@@ -86,8 +89,15 @@ const Game = () => {
     });
 
     let status;
-    if (winner) {
+
+    if (winner && !gameOver) {
         status = "Winner: " + winner;
+        if (winner === "X") {
+          setXScore(xScore + 1);
+        } else {
+          setOScore(oScore + 1);
+        }
+        setGameOver(true);
       } else if (!current.squares.includes(null)) {
         status = "It's a Draw";
       } else {
@@ -97,6 +107,12 @@ const Game = () => {
 
     return (
         <div className="game">
+          <div className="scoreboard">
+              <h4>Scoreboard</h4>
+              <div>X-Score: {xScore}</div>
+              <div>O-Score: {oScore}</div>
+          </div>
+
             <div className="game-board">
                 <Board
                     squares={current.squares}

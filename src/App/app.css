@@ -46,18 +46,20 @@ ol, ul {
 
 .game {
     display: flex;
-    flex-direction: row;
-    text-align: center;
 }
 
 .game-info {
-    margin-left: 20px;
+    margin: 50px;
 }
 
-.appContainer {
-
+.game-board{
+  margin: 50px;
 }
 
 .square-winning {
   background-color: lime;
+}
+
+.scoreboard {
+  margin: 50px;
 }
