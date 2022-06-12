@@ -5,7 +5,7 @@ import Board from "../Board";
  * A game of tic-tac-toe.
  */
 const Game = () => {
-    const [gameHistory, setGameHistory] = useState([{ squares: Array(9).fill(null) }]); // Start of game
+    const [gameHistory, setGameHistory] = useState([{ squares: Array(9).fill(null) }]); // Start of game, all squares are empty
     const [stepNumber, setStepNumber] = useState(0);
     const [xIsNext, setXisNext] = useState(true);
 
@@ -21,13 +21,26 @@ const Game = () => {
             [2, 4, 6]
         ];
 
+        // a, b, c vars are references to indcies, defined by the elements of the lines array
+        // lines is a collection of index-trios that make up winning lines
+        // if a, b, and c contain the same value 'x' or 'o', it returns the winner
         for (let i = 0; i < lines.length; i++) {
             const [a, b, c] = lines[i];
-            if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+
+            // if there is a value in square a and
+            // it is equal to what is in square b and
+            // it is equal to what is in square c
+            // return the value in square a
+            if (
+              squares[a] &&
+              squares[a] === squares[b] &&
+              squares[a] === squares[c]
+              ) {
                 return squares[a];
             }
         }
 
+        // no winner
         return null;
     };
 
